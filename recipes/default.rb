@@ -17,6 +17,10 @@
 # limitations under the License.
 
 
+execute "disable default site" do
+  command "sudo a2dissite 000-default.conf"
+end
+
 directory node["app"]["path"] + "/" + node['app']['project_dir'] do
   owner "www-data"
   group "www-data"
@@ -33,6 +37,23 @@ directory "/vagrant/" + node['app']['project_dir'] + "/" + node['app']['public_d
     recursive true
 end
 
+template "/etc/apache2/sites-available/000-" + node['app']['server_name'] + ".conf" do
+  source 'site.conf.erb'
+  mode 0644
+  owner 'root'
+  group 'root'
+  variables(
+    :docroot        	 =>  node['app']['path'] + "/" + node['app']['project_dir'] + "/" + node['app']['public_dir'],
+    :server_port        	 => 80,
+    :server_name     => node["app"]["server_name"],
+    :server_alias      => node["app"]["server_alias"],
+    :directory_options        	 => "Indexes FollowSymLinks",
+    :allow_override        	 => "All")
+end
+
+execute "enable site" do
+  command "sudo a2ensite 000-" + node['app']['server_name'] + ".conf"
+end
 
 execute "set server name in apache2 conf-available" do
   command "echo 'ServerName "+node['app']['server_name']+"' >> /etc/apache2/conf-available/server-name.conf"
