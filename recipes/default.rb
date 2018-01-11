@@ -37,6 +37,17 @@ directory "/vagrant/" + node['app']['project_dir'] + "/" + node['app']['public_d
     recursive true
 end
 
+# link "/tmp/new" do
+#     to "/tmp/old"
+#     link_type :symbolic
+#     action :create
+# end
+link node["app"]["path"] + "/" + node['app']['project_dir'] + "/" + node['app']['public_dir'] do
+  to "/vagrant/" + node['app']['project_dir'] + "/" + node['app']['public_dir']
+    link_type :symbolic
+    action :create
+end
+
 template "/etc/apache2/sites-available/000-" + node['app']['server_name'] + ".conf" do
   source 'site.conf.erb'
   mode 0644
