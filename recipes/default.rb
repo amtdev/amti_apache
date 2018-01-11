@@ -17,7 +17,24 @@
 # limitations under the License.
 
 
-execute "set fqdn apache2" do
+directory node["app"]["path"] + "/" + node['app']['project_dir'] do
+  owner "www-data"
+  group "www-data"
+  mode 00755
+  action :create
+  recursive true
+end
+
+directory "/vagrant/" + node['app']['project_dir'] + "/" + node['app']['public_dir'] do
+    mode 00755
+    owner "www-data"
+    group "www-data"
+    action :create
+    recursive true
+end
+
+
+execute "set server name in apache2 conf-available" do
   command "echo 'ServerName "+node['app']['server_name']+"' >> /etc/apache2/conf-available/server-name.conf"
 end
 
