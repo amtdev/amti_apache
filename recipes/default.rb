@@ -16,3 +16,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+execute "set fqdn apache2" do
+  command "echo 'ServerName "+node['app']['server_name']+"' >> /etc/apache2/conf-available/server-name.conf"
+end
+
+
+execute "add apache2 server-name.conf" do
+  command "sudo a2enconf server-name.conf"
+end
+
+
+execute "restart apache2" do
+  command "sudo apache2ctl restart"
+end
