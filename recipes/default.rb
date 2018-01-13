@@ -55,7 +55,7 @@ template "/etc/apache2/sites-available/000-" + node['app']['server_name'] + ".co
   group 'root'
   variables(
     :docroot        	 =>  node['app']['path'] + "/" + node['app']['project_dir'] + "/" + node['app']['public_dir'],
-    :server_port        	 => 80,
+    :server_port        	 => "80",
     :server_name     => node["app"]["server_name"],
     :server_alias      => node["app"]["server_alias"],
     :directory_options        	 => "Indexes FollowSymLinks",
@@ -75,6 +75,9 @@ execute "add apache2 server-name.conf" do
   command "sudo a2enconf server-name.conf"
 end
 
+execute "enable apache rewrite module" do
+  command "sudo a2enmod rewrite"
+end
 
 execute "restart apache2" do
   command "sudo apache2ctl restart"
