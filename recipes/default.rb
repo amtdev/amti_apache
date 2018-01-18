@@ -79,6 +79,10 @@ execute "enable apache rewrite module" do
   command "sudo a2enmod rewrite"
 end
 
-execute "restart apache2" do
-  command "sudo apache2ctl restart"
+service "apache2" do
+  action :restart
 end
+
+#execute "restart apache2" do
+#  command "sudo service apache2 restart"
+#end

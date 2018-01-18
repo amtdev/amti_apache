@@ -1,5 +1,5 @@
 <IfModule mod_ssl.c>
-    <VirtualHost *:<%= @params[:server_port] %>>
+    <VirtualHost *:<%= @server_port %>>
         ServerName <%= @server_name %>
         <% if 'null' != @server_alias -%>
           ServerAlias <%= @server_alias %>
@@ -52,8 +52,8 @@
 		#   /usr/share/doc/apache2/README.Debian.gz for more info.
 		#   If both key and certificate are stored in the same file, only the
 		#   SSLCertificateFile directive is needed.
-	    SSLCertificateFile /etc/ssl/certs/<%= @cert_name %>.crt
-	    SSLCertificateKeyFile /etc/ssl/private/<%= @key_name %>.key
+	    SSLCertificateFile /etc/ssl/certs/<%= @cert_name %>
+	    SSLCertificateKeyFile /etc/ssl/private/<%= @key_name %>
 
 		#   Server Certificate Chain:
 		#   Point SSLCertificateChainFile at a file containing the
