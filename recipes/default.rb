@@ -82,7 +82,3 @@ end
 service "apache2" do
   action :restart
 end
-
-#execute "restart apache2" do
-#  command "sudo service apache2 restart"
-#end
