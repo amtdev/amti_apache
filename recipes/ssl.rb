@@ -24,6 +24,7 @@ end
 if 'ssl-cert-snakeoil.pem' !=  node['app']['cert_name']
     cookbook_file "/etc/ssl/certs/" + node['app']['cert_name'] do
       backup false
+      source node['app']['source_folder'] + "/" + node['app']['cert_name']
       action :create
     end
 end
@@ -31,6 +32,7 @@ end
 if 'ssl-cert-snakeoil.key' !=  node['app']['key_name']
     cookbook_file "/etc/ssl/private/" + node['app']['key_name'] do
       owner "root"
+      source node['app']['source_folder'] + "/" + node['app']['key_name']
       group "ssl-cert"
       mode "0640"
       backup false
