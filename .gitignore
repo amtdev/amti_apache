@@ -22,4 +22,4 @@ Berksfile.lock
 Policyfile.lock.json
 
 #misc
-files/*
+files/local/*
