@@ -6,7 +6,9 @@ default["app"]["private_dir"] = "null"
 default["app"]["server_name"] = "app.dev"
 default["app"]["server_alias"] = "null"
 default["app"]["cert_name"] = "null"
+default["app"]["cert_path"] = "/etc/ssl/certs/"
 default["app"]["key_name"] = "null"
+default["app"]["key_path"] = "/etc/ssl/private/"
 default["app"]["composer_support"] = "null"
 
 # app2
@@ -18,6 +20,8 @@ default["app2"]["private_dir"] = "null"
 default["app2"]["server_name"] = "app2.dev"
 default["app2"]["server_alias"] = "null"
 default["app2"]["cert_name"] = "null"
+default["app2"]["cert_path"] = "/etc/ssl/certs/"
 default["app2"]["key_name"] = "null"
+default["app2"]["key_path"] = "/etc/ssl/private/"
 default["app2"]["composer_support"] = "null"
 

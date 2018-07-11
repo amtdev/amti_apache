@@ -21,20 +21,40 @@ execute "disable default site" do
   command "sudo a2dissite default-ssl.conf"
 end
 
+if '/etc/ssl/certs/' !=  node['app']['cert_path']
+    directory node["app"]["cert_path"] do
+      owner "root"
+      group "root"
+      mode 0644
+      action :create
+      recursive true
+    end
+end
+
 if 'ssl-cert-snakeoil.pem' !=  node['app']['cert_name']
-    cookbook_file "/etc/ssl/certs/" + node['app']['cert_name'] do
+    cookbook_file  node['app']['cert_path'] + node['app']['cert_name'] do
       source node['app']['source_folder'] +"/"+ node['app']['cert_name']
       backup false
-      source node['app']['source_folder'] + "/" + node['app']['cert_name']
+      #source node['app']['source_folder'] + "/" + node['app']['cert_name']
       action :create
     end
 end
 
+if '/etc/ssl/private/' !=  node['app']['key_path']
+    directory node["app"]["key_path"] do
+      owner "root"
+      group "root"
+      mode 0644
+      action :create
+      recursive true
+    end
+end
+
 if 'ssl-cert-snakeoil.key' !=  node['app']['key_name']
-    cookbook_file "/etc/ssl/private/" + node['app']['key_name'] do
+    cookbook_file  node['app']['key_path'] + node['app']['key_name'] do
       source node['app']['source_folder'] +"/"+ node['app']['key_name']
       owner "root"
-      source node['app']['source_folder'] + "/" + node['app']['key_name']
+      #source node['app']['source_folder'] + "/" + node['app']['key_name']
       group "ssl-cert"
       mode "0640"
       backup false
@@ -53,7 +73,9 @@ template "/etc/apache2/sites-available/000-" + node['app']['server_name'] + "-ss
     :server_name     => node["app"]["server_name"],
     :server_alias      => node["app"]["server_alias"],
     :cert_name  =>  node["app"]["cert_name"],
+    :cert_path  =>  node["app"]["cert_path"],
     :key_name  =>  node["app"]["key_name"],
+    :key_path  =>  node["app"]["key_path"],
     :directory_options        	 => "Indexes FollowSymLinks",
     :allow_override        	 => "All")
 end
