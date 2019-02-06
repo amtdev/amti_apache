@@ -27,7 +27,9 @@ template "/etc/apache2/sites-available/111-" + node['app2']['server_name'] + "-s
     :server_name     => node["app2"]["server_name"],
     :server_alias      => node["app2"]["server_alias"],
     :cert_name  =>  node["app2"]["cert_name"],
+    :cert_path  =>  node["app"]["cert_path"],
     :key_name  =>  node["app2"]["key_name"],
+    :key_path  =>  node["app"]["key_path"],
     :directory_options        	 => "Indexes FollowSymLinks",
     :allow_override        	 => "All")
 end
