@@ -54,9 +54,26 @@ if 'ssl-cert-snakeoil.key' !=  node['app']['key_name']
     cookbook_file  node['app']['key_path'] + node['app']['key_name'] do
       source node['app']['source_folder'] +"/"+ node['app']['key_name']
       owner "root"
-      #source node['app']['source_folder'] + "/" + node['app']['key_name']
       group "ssl-cert"
       mode "0640"
+      backup false
+      action :create
+    end
+end
+
+if 'null' !=  node['app']['chain_file_path']
+    directory node["app"]["chain_file_path"] do
+      owner "root"
+      group "root"
+      mode 0644
+      action :create
+      recursive true
+    end
+end
+
+if 'null' !=  node['app']['chain_file_name']
+    cookbook_file  node['app']['chain_file_path'] + node['app']['chain_file_name'] do
+      source node['app']['source_folder'] +"/"+ node['app']['chain_file_name']
       backup false
       action :create
     end
@@ -76,6 +93,8 @@ template "/etc/apache2/sites-available/000-" + node['app']['server_name'] + "-ss
     :cert_path  =>  node["app"]["cert_path"],
     :key_name  =>  node["app"]["key_name"],
     :key_path  =>  node["app"]["key_path"],
+    :chain_file_name  =>  node["app"]["chain_file_name"],
+    :chain_file_path  =>  node["app"]["chain_file_path"],
     :directory_options        	 => "Indexes FollowSymLinks",
     :allow_override        	 => "All")
 end

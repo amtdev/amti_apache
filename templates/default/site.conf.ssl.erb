@@ -62,7 +62,9 @@
 		#   the referenced file can be the same as SSLCertificateFile
 		#   when the CA certificates are directly appended to the server
 		#   certificate for convinience.
-		#SSLCertificateChainFile /etc/apache2/ssl.crt/server-ca.crt
+       <% if 'null' != @chain_file_path -%>
+        SSLCertificateChainFile <%= @chain_file_path %><%= @chain_file_name %>
+        <% end -%>
 
 		#   Certificate Authority (CA):
 		#   Set the CA certificate verification path where to find CA
