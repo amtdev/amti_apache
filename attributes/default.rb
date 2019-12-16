@@ -9,6 +9,8 @@ default["app"]["cert_name"] = "null"
 default["app"]["cert_path"] = "/etc/ssl/certs/"
 default["app"]["key_name"] = "null"
 default["app"]["key_path"] = "/etc/ssl/private/"
+default["app"]["chainfile_name"] = "null"
+default["app"]["chainfile_path"] = "null"
 default["app"]["composer_support"] = "null"
 
 # app2
