@@ -9,8 +9,8 @@ default["app"]["cert_name"] = "ssl-cert-snakeoil.pem"
 default["app"]["cert_path"] = "/etc/ssl/certs/"
 default["app"]["key_name"] = "ssl-cert-snakeoil.key"
 default["app"]["key_path"] = "/etc/ssl/private/"
-default["app"]["chainfile_name"] = "null"
-default["app"]["chainfile_path"] = "null"
+default["app"]["chain_file_name"] = "null"
+default["app"]["chain_file_path"] = "null"
 default["app"]["composer_support"] = "null"
 
 # app2
